@@ -12,6 +12,8 @@ local function getAddress(aob, errorMsg, modifierFunc)
   return modifierFunc(address)
 end
 
+local requireTable
+
 exports.enable = function(self, moduleConfig, globalConfig)
 
   local procAddress = getAddress(
@@ -27,7 +29,7 @@ exports.enable = function(self, moduleConfig, globalConfig)
 
   --[[ load module ]]--
   
-  local requireTable = require("winProcHandler.dll") -- loads the dll in memory and runs luaopen_winProcHandler
+  requireTable = require("winProcHandler.dll") -- loads the dll in memory and runs luaopen_winProcHandler
 
   -- address of crusaders windowProcCallback needed, fill address of given variable with callback address
   core.writeCode(
@@ -44,5 +46,16 @@ exports.enable = function(self, moduleConfig, globalConfig)
 end
 
 exports.disable = function(self, moduleConfig, globalConfig) error("not implemented") end
+
+---Get the function pointers to the three main functions: RegisterProc, GetMainProc, CallNextProc
+---@param self table namespace
+---@return table interface the addresses in memory of the three functions
+exports.cinterface = function(self)
+  return {
+    RegisterProc = requireTable.funcAddress_RegisterProc,
+    GetMainProc = requireTable.funcAddress_GetMainProc,
+    CallNextProc = requireTable.funcAddress_CallNextProc,
+  }
+end
 
 return exports

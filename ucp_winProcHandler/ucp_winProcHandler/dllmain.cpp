@@ -100,6 +100,7 @@ extern "C" __declspec(dllexport) int __stdcall RegisterProc(WinProcHeader::FuncC
 // lua module load
 extern "C" __declspec(dllexport) int __cdecl luaopen_winProcHandler(lua_State * L)
 {
+
   lua_newtable(L); // push a new table on the stack
 
   // need to write window callback func to the returned address
@@ -110,5 +111,15 @@ extern "C" __declspec(dllexport) int __cdecl luaopen_winProcHandler(lua_State * 
   lua_pushinteger(L, (DWORD)WindowProc);
   lua_setfield(L, -2, "funcAddress_WindowProc");
 
+  // Add extern function pointers for ease of use from lua
+  lua_pushinteger(L, (DWORD)RegisterProc);
+  lua_setfield(L, -2, "funcAddress_RegisterProc");
+
+  lua_pushinteger(L, (DWORD)GetMainProc);
+  lua_setfield(L, -2, "funcAddress_GetMainProc");
+
+  lua_pushinteger(L, (DWORD)CallNextProc);
+  lua_setfield(L, -2, "funcAddress_CallNextProc");
+  
   return 1;
 }
