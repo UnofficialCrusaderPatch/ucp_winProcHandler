@@ -5,7 +5,8 @@ The module allows to register a modified WindowProc function via other module co
 
 ### Usage
 
-The API is provided via exported C functions and can be accessed via the `ucp.dll`-API, or from lua `modules.winProcHandler.cinterface()`. 
+The API is provided via exported C functions and can be accessed via the `ucp.dll`-API, or from Lua `modules.winProcHandler:cinterface()` after the module is enabled.
+Version 1.0.1 declares the framework proxy options needed for this table return on UCP 3.0.7; the exported addresses remain read-only and native dispatch is unchanged.
 To make using the module easier, the header [winProcHelper.h](ucp_winProcHandler/ucp_winProcHandler/winProcHandler.h) can be copied into your project.  
 It is used by calling the function *initModuleFunctions()* in your module once after it was loaded, for example in the lua require-call. It tries to receive the provided functions and returns *true* if successful. For this to work, winProcHandler needs to be a dependency.
 The provided functions are the following:

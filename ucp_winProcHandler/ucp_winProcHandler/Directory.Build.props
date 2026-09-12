@@ -20,7 +20,7 @@
     <PackageReference Include="lua" Version="5.4.6" />
 
     <!-- Not strictly required -->
-    <PackageReference Include="UnofficialCrusaderPatch3" />
+    <PackageReference Include="UnofficialCrusaderPatch3" Version="[3.0.7]" />
 
     <!-- This is the way to include files if you would ever want to build a nuget file (not recommended), see the ucp.dll nuget spec for more examples
     <Content Include="README.md">

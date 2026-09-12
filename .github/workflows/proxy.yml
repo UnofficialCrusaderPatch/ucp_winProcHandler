@@ -1,0 +1,20 @@
+name: Stock framework interface
+on: [push, pull_request]
+jobs:
+  proxy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: UnofficialCrusaderPatch/UnofficialCrusaderPatch3
+          ref: 77c6accf14a55fb95434fe6ffd96516e005568b5
+          path: framework-reference
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install lupa
+      - run: python -m unittest discover -s tests -v
+        env:
+          UCP_FRAMEWORK_PROXIES: framework-reference/content/ucp/code/extensions/proxies.lua

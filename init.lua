@@ -58,4 +58,4 @@ exports.cinterface = function(self)
   }
 end
 
-return exports
+return exports, { proxy = { ignored = {} } }
